@@ -2,7 +2,7 @@
 
 # Variables
 DOCKER_USERNAME="mohanasuriyan"
-APP_NAME="react-app"
+APP_NAME="dev"
 TAG="latest"
 
 # Pull the latest image from Docker Hub
