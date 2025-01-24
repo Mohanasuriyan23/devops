@@ -19,9 +19,7 @@ pipeline {
             }
         }
         stage('Push to Docker Hub - Dev') {
-            when {
-                branch 'dev' // Push only for the 'dev' branch
-            }
+            
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: "${DOCKER_CREDENTIALS}", usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
@@ -32,9 +30,7 @@ pipeline {
             }
         }
         stage('Push to Docker Hub - Prod') {
-            when {
-                branch 'main' // Push only for the 'main' branch
-            }
+            
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: "${DOCKER_CREDENTIALS}", usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
