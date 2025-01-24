@@ -1,24 +1,18 @@
-# Use a Node.js base image
-FROM node:16-alpine AS build
 
-# Set working directory
-WORKDIR /app
-
-# Copy package.json and install dependencies
-COPY package.json package-lock.json ./
-RUN npm install
-
-# Copy the source code and build the app
-COPY . .
-RUN npm run build
-
-# Serve the app using nginx
-FROM nginx:alpine
-COPY --from=build /app/build /usr/share/nginx/html
-
-# Expose port 80
+# Use the official Nginx image
+FROM nginx:stable
+ 
+# Set the working directory inside the container
+WORKDIR /usr/share/nginx/html
+ 
+# Remove the default Nginx static files
+RUN rm -rf ./*
+ 
+# Copy the build folder content to the Nginx HTML directory
+COPY build/ .
+ 
+# Expose port 80 for HTTP traffic
 EXPOSE 80
-
-# Start nginx
+ 
+# Start Nginx server
 CMD ["nginx", "-g", "daemon off;"]
-
